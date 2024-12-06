@@ -1,4 +1,4 @@
-
+// Menu Data
 const menuData = [
     { category: "coffee", name: "Cappuccino", image: "images/image1.jpg", description: "Rich espresso topped with frothy steamed milk.", price: 1.99 },
     { category: "coffee", name: "Caffè Latte", image: "images/image2.jpg", description: "Smooth espresso combined with creamy steamed milk.", price: 2.49 },
@@ -131,7 +131,6 @@ const updateCheckoutButton = () => {
 };
 
 // Checkout Button Event
-// Checkout Button Event
 document.getElementById("checkout-btn").addEventListener("click", () => {
     if (cart.length > 0) {
         let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -139,6 +138,13 @@ document.getElementById("checkout-btn").addEventListener("click", () => {
     }
 });
 
+// Tab Click Handlers for Category Filtering
+document.querySelectorAll(".menu-tab").forEach(tab => {
+    tab.addEventListener("click", (event) => {
+        const category = event.target.getAttribute("data-category");
+        renderMenu(category);
+    });
+});
 
 // Slideshow
 let currentSlide = 0;
@@ -148,6 +154,7 @@ const showSlide = (index) => {
         slide.style.display = i === index ? "block" : "none";
     });
 };
+
 const changeSlide = (direction) => {
     const slides = document.querySelectorAll("#slideshow .slide");
     currentSlide = (currentSlide + direction + slides.length) % slides.length;
@@ -155,6 +162,6 @@ const changeSlide = (direction) => {
 };
 
 // Initial Render
-renderMenu();
-renderCart();
-showSlide(currentSlide);
+renderMenu(); // Display all items by default
+renderCart(); // Display the empty cart initially
+showSlide(currentSlide); // Start slideshow
